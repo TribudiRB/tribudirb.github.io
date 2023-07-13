@@ -1,4 +1,7 @@
 ../_site
+.jekyll-cache/*
+.idea
+.idea/*
 .sass-cache
 myblog/.jekyll-cache
 .jekyll-metadata
