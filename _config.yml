@@ -18,22 +18,25 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Personal notebook
+title: The Personal Learning Notebook
 #email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  The Personal Learning Notebook is a project dedicated to facilitating and enhancing personal learning journeys. 
+  It serves as a digital platform for me to document my learning experiences, insights, and progress in a structured 
+  and organized manner.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+#twitter_username: jekyllrb
+github_username:  TribudiRB
+#permalink: pretty/
 
 # Build settings
 theme: minima
+#compress-site: yes
 plugins:
   - jekyll-feed
 
+paginate: 5
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
@@ -56,7 +59,7 @@ plugins:
 
 
 # Build settings
-compress-site: yes
+
 
 encoding: "utf-8"
 compress_html:

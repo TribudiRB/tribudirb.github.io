@@ -9,5 +9,5 @@ bundle install
 
 ### Execute a script which serve site in the current bundle
 ```bash
-bundle exec jekyll serve
+bundle exec jekyll serve --force_polling
 ```
