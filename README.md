@@ -11,3 +11,18 @@ bundle install
 ```bash
 bundle exec jekyll serve --force_polling
 ```
+
+### Create your new page using:
+```bash
+bundle exec jekyll page "My New Page"
+```
+
+### Create your new post using:
+```bash
+bundle exec jekyll post "My New Post"
+```
+
+### Create your new draft using:
+```bash
+bundle exec jekyll draft "My new draft"
+```
