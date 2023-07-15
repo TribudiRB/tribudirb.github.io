@@ -1,18 +1,11 @@
 ---
 layout: page
-title: About
+title: About Me
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
-
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+<p>
+I am a skilled software engineer who is passionate about creating innovative software solutions that make organisations more efficient. 
+I have a deep understanding of technology and can write code and design systems that are reliable and meet your business needs. 
+<br>I am committed to embracing change and helping my colleagues navigate transitions.
+I am also a good communicator and can provide feedback to different groups of people in order to achieve goals and improve workflows.

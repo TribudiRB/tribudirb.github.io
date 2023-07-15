@@ -1,0 +1,223 @@
+---
+layout: post
+title: Linear Models
+date: 2023-07-14 15:13 +0100
+categories: [ Machine Learning, Programming ]
+---
+
+# Contents
+- [Linear regression](#linear-regression)
+  - [Training](#training)
+  - [Prediction](#prediction)
+- [Correlation](#correlation)
+  - [No correlation between the error terms](#no-correlation-between-the-error-terms)
+  - [Features should not be strongly correlated with each other](#features-should-not-be-strongly-correlated-with-each-other)
+  - [Multicollinearity](#multicollinearity)
+- [The error terms should exhibit constant variance](#the-error-terms-should-exhibit-constant-variance)
+- [Error terms should be normally distributed](#error-terms-should-be-normally-distributed)
+- [OLS models for linearity](#ols-models-for-linearity)
+- [Autocorrelation: Inflated t-Statistics and Unstable Models](#autocorrelation)
+- [Validity of Statistical Tests and Inference](#normality-of-error-in-the-statistical-tests)
+- [Non-linearity - Transformation of variables](#non-linearity)
+- [Auto-correlation - Find another suitable model such as Time series model](#autocorrelation)
+- [Analyzing Time Series Data with Auto-correlation: Insights and Predictions using ARIMA Models](#analyzing-time-series-data-with-auto-correlation-insights-and-predictions-using-arima-models)
+- [Heteroscedasticity - Weighted List Square](#heteroscedasticity---weighted-list-square)
+- [Multicollinearity in Regression Analysis: Challenges, Detection, and Remedies](#multicollinearity-in-regression-analysis-challenges-detection-and-remedies)
+- [A statistical error or disturbance is the amount by which an observation differs from its expected value](#a-statistical-error-or-disturbance-is-the-amount-by-which-an-observation-differs-from-its-expected-value)
+- [A residual (or fitting deviation), on the other hand, is an observable estimate of the unobservable statistical error](#a-residual-or-fitting-deviation-on-the-other-hand-is-an-observable-estimate-of-the-unobservable-statistical-error)
+
+### Linear regression
+A way to find a straight line that best represents a relationship between two things. 
+To illustrate, let's say we want to know how the house price is related to size.
+We may use linear regression to draw a line that shows how the price changes as the size of the house changes.
+
+Imagine you have a scatter plot with dots representing different houses. 
+The horizontal axis shows the size of the houses, and the vertical axis shows the prices. 
+Linear regression helps us find a line that passes through the scatter plot, trying to get as close as possible to all the dots.
+
+This line helps us make predictions. 
+For example, if we have the size of a new house, 
+we can use the line to estimate its price. 
+The line is determined by two things: its slope and its intercept. 
+The slope tells us how much the price changes for each unit increase in size.
+The intercept tells us the price when the size is zero (which is usually not meaningful in real-life examples).
+
+So, in a nutshell, linear regression is a way to draw a straight line through data points to understand and predict 
+the relationship between two variables, like house size and price.
+
+Linear regression can be extended to handle multiple independent variables, resulting in multiple linear regression.
+In this case, the equation becomes:
+```
+y = β₀ + β₁x₁ + β₂x₂ + ... + βₚxₚ + ɛ
+```
+
+Where:
+```
+x₁, x₂, ..., xₚ - represent the independent variables.
+β₁, β₂, ..., βₚ - are the corresponding coefficients.
+```
+
+The process of using linear regression as a machine learning algorithm involves two main steps: 
+- [training](#training)
+- [prediction](#prediction)
+
+##### Training
+During the training phase, the algorithm learns from a set of input-output pairs, also known as a training dataset. 
+Each example in the dataset consists of features (input variables) and their corresponding output values. 
+For instance, in the house price example, the features would be
+the size of the house, number of bedrooms, location, etc., and the output would be the price.
+The algorithm adjusts its internal parameters to find the best-fitting line that minimizes the difference
+between the predicted values and the actual output values. This is typically done using a technique
+called least squares, which calculates the optimal values for the parameters.
+
+##### Prediction
+Once the algorithm is trained, it can be used to make predictions on new, unseen data. 
+Given a set of features for a new example, the algorithm uses the learned parameters to calculate the predicted output value. 
+In our house price example, if we have the size and other features of a new house, we can use the trained linear regression model to predict its price.
+Linear regression is a popular and widely used algorithm due to its simplicity and interpretability. 
+However, it assumes a linear relationship between the input variables and the output, which may not always hold true
+in complex real-world scenarios. In such cases, more advanced regression techniques or other machine learning
+algorithms may be more appropriate.
+
+## Correlation
+
+### No correlation between the error terms
+The errors are independent of each other. This implies that the error made in predicting one data point is not
+influenced by the error made in predicting another data point. 
+Furthermore, it suggests that there are no discernible patterns or correlations among these errors. 
+This assumption is of utmost importance as it instills confidence in the outcomes generated by our model. 
+If any relationship or pattern were present among the errors, it could introduce inaccuracies or render the results unreliable.
+
+### Features should not be strongly correlated with each other
+When we emphasize the need for independent variables to be uncorrelated,
+we are essentially stating that there should not be a significant linear association between any two independent variables. 
+This criterion holds paramount importance due to the potential occurrence of a phenomenon called [Multicollinearity](#multicollinearity).
+[Multicollinearity](#multicollinearity) arises when independent variables exhibit high correlation amongst themselves. 
+In such cases, it becomes challenging for the model to determine the individual effects of each independent variable accurately. 
+Instead, the model may assign redundant or conflicting importance to the correlated variables, resulting in unstable and unreliable estimates.
+To avoid these complications, it is essential to ensure that the independent variables are not strongly correlated.
+By maintaining independence among the variables, we allow the model to discern their distinct contributions and produce 
+more robust and trustworthy results.
+
+### Multicollinearity
+Occurs when the independent variables are strongly correlated, making it difficult for the model 
+to distinguish the individual effects of each variable on the dependent variable. This can lead to unstable
+or unreliable coefficient estimates and difficulties in interpreting the model's results. To address it, it is generally recommended
+to assess the correlation between the independent variables before performing linear regression. 
+If strong correlations are detected, potential solutions include removing one of the correlated variables, 
+combining them into a single variable, or using more advanced techniques such as principal component analysis (PCA) or ridge regression.
+
+### The error terms should exhibit constant variance
+Another assumption in linear regression is that the error terms (also known as residuals) should have constant variance, 
+which means that the spread or dispersion of the errors should remain the same across all levels of the independent variables.
+This assumption is called homoscedasticity or the assumption of constant variance. It implies that the variability of the errors should not systematically change as we move along the range of the independent variables. In other words, the spread of the residuals should be consistent throughout the data.
+When the assumption of constant variance is violated, it is known as heteroscedasticity. Heteroscedasticity can occur when the spread of the residuals varies with the levels or values of the independent variables. This can lead to biased or inefficient estimates of the model's coefficients, affecting the accuracy and reliability of the regression analysis.
+To detect heteroscedasticity, diagnostic plots such as residual plots or plots of the residuals against the predicted values or independent variables can be used. If heteroscedasticity is detected, appropriate measures need to be taken. This can include transforming the variables, using weighted least squares regression, or employing robust standard errors to correct for heteroscedasticity.
+By ensuring constant variance of the error terms, we can have confidence in the reliability of the model's estimates and make valid statistical inferences and predictions
+
+#### Error terms should be normally distributed
+In simple terms, one assumption of linear regression is that the error terms (the differences between the predicted and actual values) should follow a bell-shaped curve, just like a normal distribution. This means that most of the errors should be around zero, with a few smaller errors on either side.
+When the errors are normally distributed, it helps us make more accurate statistical conclusions and predictions. However, it's important to note that this assumption primarily applies to the errors and not necessarily the independent variables or the dependent variable itself.
+To check if the assumption is met, we can look at a histogram or a plot that shows if the errors look like a bell-shaped curve. If they do, the assumption is considered satisfied. If not, there are some techniques we can use to address the violation, such as transforming the data or using specialized regression methods.
+Remember, even if the assumption is not perfectly met, linear regression can still provide useful results, especially when we have a large amount of data.
+
+### OLS models for linearity
+When the assumption of linearity is violated in linear regression, the estimates of the regression coefficients obtained through ordinary least squares (OLS) may be biased or inaccurate.
+Linearity is an essential assumption in linear regression, which means that the relationship between the independent variables and the dependent variable should be linear. If this assumption is violated, meaning that the true relationship is not linear, using OLS to estimate the parameters can lead to biased results.
+When the relationship is not linear, the OLS regression line may not effectively capture the true pattern or trend in the data. It may overestimate or underestimate the impact of the independent variables on the dependent variable.
+To address violations of linearity, several techniques can be employed, such as transforming variables (e.g., using logarithmic or polynomial transformations), adding interaction terms, or using more flexible regression models (e.g., generalized linear models or non-linear regression).
+By accounting for non-linear relationships, we can obtain more accurate and reliable parameter estimates, allowing for better understanding and prediction of the dependent variable based on the independent variables.
+
+
+### Autocorrelation
+Autocorrelation, which is the presence of correlation among the error terms in a time series or panel data, can lead to several issues in linear regression analysis.
+One of the problems caused by autocorrelation is the inflation of t-statistics. The t-statistic measures the significance of the estimated coefficients by comparing them to their standard errors. However, when autocorrelation is present, the standard errors of the coefficients tend to be underestimated. As a result, the t-statistics become artificially inflated, leading to the potential for false or misleading conclusions.
+Inflated t-statistics can make coefficients appear more significant than they actually are, leading to a higher likelihood of Type I errors (rejecting a true null hypothesis). This can lead to an unstable model and unreliable inferences.
+To address autocorrelation, there are a few approaches that can be taken. One commonly used method is to apply appropriate estimation techniques that account for autocorrelation, such as feasible generalized least squares (GLS), generalized method of moments (GMM), or autoregressive models. Another approach involves transforming the data or including lagged variables in the regression model.
+By properly addressing autocorrelation, we can obtain more accurate standard errors, t-statistics, and p-values, resulting in a more stable and reliable regression model.
+
+### Normality of error in the statistical tests
+The assumption of normality of the error terms in linear regression is necessary for certain statistical tests to be valid.
+When the error terms follow a normal distribution, it allows for the application of statistical tests that rely on normality assumptions, such as hypothesis testing (e.g., testing the significance of regression coefficients) and constructing confidence intervals. These tests and intervals are based on specific assumptions about the distribution of the errors.
+Violations of normality can impact the validity of these statistical tests. If the error terms are not normally distributed, the p-values obtained from hypothesis tests may be inaccurate, leading to incorrect conclusions about the significance of the variables. Similarly, confidence intervals may not have the desired coverage probability.
+However, it's worth noting that the normality assumption is more critical in small sample sizes. In larger sample sizes, the central limit theorem states that the sampling distribution of the estimated coefficients tends to become approximately normal, even if the error terms are not perfectly normally distributed. This allows for valid statistical inference in many practical situations, even if the normality assumption is not strictly met.
+Nonetheless, it is generally good practice to assess the normality assumption through diagnostic plots or statistical tests. If the assumption is violated, alternative techniques or transformations may be considered, or non-parametric regression methods can be employed.
+In summary, while normality is important for the validity of certain statistical tests in linear regression, the impact of deviations from normality depends on sample size and the specific context of the data analysis.
+
+### Non-linearity
+Imagine you are studying the relationship between a person's age and their income.
+Initially, you assume that the relationship is a straight line, meaning that as age increases,
+income increases at a constant rate. However, when you plot the data, you notice that the relationship 
+between age and income is not a straight line but rather a curve.
+To address this non-linearity, you can apply a transformation to the age variable.
+For instance, you can take the square root of each person's age. 
+By doing this, you are transforming the age variable from its original form to its square root form.
+Now, when you plot the square root of age against income, you may find that the relationship appears more linear. 
+
+This means that as the square root of age increases, income increases at a more constant rate. 
+Therefore, by transforming the age variable, you have captured the non-linear relationship 
+and made it easier to analyze using linear models.
+In this example, the transformation of the age variable from its original form 
+to its square root form helped to capture the non-linear relationship with income. 
+This allows you to better understand the data and potentially build more accurate m
+odels or make more informed decisions based on the transformed variables.
+
+### Analyzing Time Series Data with Auto-correlation: Insights and Predictions using ARIMA Models
+Auto-correlation means looking at how a variable is related to its own past values over time. In other words, it measures if there is a pattern or relationship between a variable's values from one time period to the next.
+For example, let's say we're studying the daily temperature in a city. If there is positive auto-correlation, it means that if today is hot, it is likely that tomorrow will also be hot. Negative auto-correlation would mean that if today is hot, tomorrow is likely to be cooler.
+A suitable model for analyzing this kind of data is called an ARIMA model. It helps us understand the patterns in the data and make predictions. The ARIMA model combines three parts: autoregression (AR), differencing (I), and moving average (MA).
+Autoregression looks at how the variable's past values affect its current value. Differencing helps to remove trends and make the data more consistent over time. Moving average looks at the average of past forecast errors to make predictions for the current value.
+By using the ARIMA model, we can understand how the temperature has changed over time, make predictions about future temperatures, and see if there are any patterns or relationships between past and future temperatures.
+
+### Heteroscedasticity - Weighted List Square
+Heteroscedasticity means that the spread or variability of the data points around a line is not the same throughout the data. In simpler terms, it means that the points don't have a consistent pattern of how far they are from the line as we move along.
+To deal with heteroscedasticity, we can use a method called Weighted Least Squares (WLS). WLS is a way to adjust the analysis by giving more importance to data points that have smaller differences from the line and less importance to data points with larger differences.
+By using WLS, we can take into account the varying spread of the data points and get more accurate results. It helps us improve the fit of the regression model and make better conclusions from the analysis.
+In summary, when we have heteroscedasticity, we can use Weighted Least Squares (WLS) to adjust the analysis and give more importance to data points with smaller differences from the line. This helps us get more accurate results and make better conclusions.
+
+### Multicollinearity in Regression Analysis: Challenges, Detection, and Remedies
+Multicollinearity refers to a situation in which two or more independent variables in a regression model are highly correlated with each other. In simpler terms, it means that there is a strong relationship or similarity between two or more of the variables being used to predict the dependent variable.
+When multicollinearity is present, it can cause issues in the regression analysis. One problem is that it becomes difficult to determine the individual impact or importance of each variable on the dependent variable. Additionally, multicollinearity can lead to unstable and unreliable estimates of the regression coefficients.
+To address multicollinearity, one approach is to check the variance inflation factor (VIF) or the condition index (CI) for each variable. These are measures that indicate the level of correlation between variables. If the VIF or CI for a variable exceeds a certain threshold (often set at 5 or 10), it suggests high multicollinearity.
+In such cases, one option is to consider removing one of the highly correlated variables from the analysis. By eliminating one of the variables, we can reduce the multicollinearity and improve the stability of the regression model.
+However, it's important to exercise caution when removing variables. It should be done based on careful consideration of the specific context and subject matter expertise. Removing variables without a valid reason can lead to a loss of valuable information and potentially biased results.
+In summary, when we have multicollinearity, which is a high correlation between independent variables, we can check the VIF or CI values for each variable. If a variable's value exceeds a threshold, it suggests high multicollinearity, and removing that variable may be considered to improve the regression model's stability. But it's crucial to make informed decisions based on the specific context and avoid arbitrary removal of variables.
+
+
+### A statistical error or disturbance is the amount by which an observation differs from its expected value
+A statistical error, also known as a statistical disturbance or residual, 
+represents the difference between an observed value and its expected or predicted value in a statistical analysis. In simpler terms, 
+when we make predictions or estimate values using statistical models, there is often some level of uncertainty or discrepancy 
+between the predicted value and the actual observed value. The statistical error measures this difference. For example, let's say 
+we have a regression model that predicts housing prices based on factors such as size, location, and number of rooms. 
+When we use this model to estimate the price of a particular house, the predicted price may not be exactly
+the same as the actual selling price. The difference between the predicted price and the actual price is the statistical error. 
+
+The statistical error is important because it helps us evaluate the accuracy and reliability of 
+our predictions or model estimates. By analyzing the errors, we can assess how well our model fits the 
+data and make improvements if necessary. Minimizing the errors is a goal in statistical analysis, as it indicates
+a better fit between the model and the observed data. In summary, a statistical error represents 
+the difference between an observed value and its expected or predicted value. It is used to assess the 
+accuracy and reliability of statistical models and to make improvements in data analysis
+
+### A residual (or fitting deviation), on the other hand, is an observable estimate of the unobservable statistical error
+A residual, also known as a fitting deviation, is an observed estimate of the unobservable statistical error in a statistical analysis.
+In simpler terms, when we have a statistical model that predicts or estimates values, 
+the residual represents the difference between the observed data point and the predicted value based on the model. 
+It is the actual discrepancy between what was predicted and what was actually observed.
+
+For example, let's consider a simple linear regression model that predicts students' 
+test scores based on the number of hours they studied. If we use this model to predict a student's 
+test score and compare it to their actual score, the difference between the two is the ___residual___.
+Residuals are useful because they provide insight into how well the model fits the data. If the residuals 
+are small or close to zero, it suggests that the model is doing a good job of capturing 
+the relationship between the variables. On the other hand, large residuals indicate 
+that the model may not be accurately predicting the observed data.
+
+Analyzing the residuals can help us identify patterns or trends that may suggest problems with the model, 
+such as missing variables or violations of model assumptions. Additionally, residuals can be used to 
+assess the overall goodness of fit of the model and to make adjustments or improvements.
+
+In summary, a residual is the observed difference between an actual data point and the predicted value based 
+on a statistical model. Residuals provide information about how well the model fits the data and can 
+help identify areas for improvement in the analysis.
