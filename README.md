@@ -19,7 +19,7 @@ bundle exec jekyll page "My New Page"
 
 ### Create your new post using:
 ```bash
-bundle exec jekyll post "Linear Models"
+bundle exec jekyll post "Atomic-Habit"
 ```
 
 ### Create your new draft using:
